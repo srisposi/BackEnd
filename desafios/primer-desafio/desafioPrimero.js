@@ -18,18 +18,17 @@ class Usuario {
         return this.mascotas.length;
     }
 
-    addBook(nombre,autor){
-        this.libros.push(nombre,autor)
+    addBook(nombre, autor){
+        this.libros.push({nombre: nombre, autor: autor})
     }
 
     getBookNames(){
-        for (let item = 0; item < length(this.libros); item++) {
-            array = []
-            array = this.libros.nombre[item]
+        let array = []
+        for (let item = 0; item < this.libros.length; item++) {
+            array.push(this.libros[item].nombre)
          }
         return array 
     }
-
 }
 
 const personaPrimera = new Usuario('José', 'Pekerman', 
