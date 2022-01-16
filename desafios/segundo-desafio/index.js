@@ -5,25 +5,26 @@ class Contenedor {
   }
 
   //Función Primera - Salvar objeto y obtener el id asignado
-  /*     async save(Object){
-        try {
- */ /*             await fs.promises. */
-  //obtener array de ojetos en el archivp
-  //obtener maximo id
-  //gurdar el proximo id
-  //crear nuevo objeto con propiedad id asociando el proximo
-  //gurdar en el archivo
-  /*             await fs.promises.appendFile('./producto.txt', Object) */
-  //retronar el id utilizado
-  /*         }
-        catch(error){
-            console.log(error)
-        }
-    }
- */
-  //Función Segunda - Recive un id y devuelve el objeto con ese id o null si no está
-  async getById(Number) {
+  async save(objeto) {
     try {
+      return fs.promises
+        .appendFile(this.url_archivo, objeto)
+        .then((response) => {
+          return JSON.parse(response).data[maxId];
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Función Segunda - Recive un id y devuelve el objeto con ese id o null si no está
+  async getById(number) {
+    try {
+      return fs.promises
+        .readFile(this.url_archivo, "utf-8")
+        .then((response) => {
+          return response.find((elemento) => elemento == number);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -43,34 +44,58 @@ class Contenedor {
   }
 
   //Función Quarta - para elimiar buscando un id
-  async deleteById() {
+  async deleteById(idNumber) {
     try {
+      return fs.promises
+        .readFile(this.url_archivo, "utf-8")
+        .then((response) => {
+          response.find((elemento) => elemento == idNumber);
+          response.data[idNumber] = {};
+        });
     } catch (error) {
       console.log(error);
     }
   }
 
   //Función Quinta - para eliminar todo
-  /*     async deleteAll() {
-        try {
-            await fs.promises.writeFile(this.fileName, JSON.stringify([], null, 2))
-        }
-        catch(error){
-            console.log(error)
-        }
+  async deleteAll() {
+    try {
+      return fs.promises
+        .readFile(this.url_archivo, "utf-8")
+        .then((response) => {
+          response.data = [];
+        });
+    } catch (error) {
+      console.log(error);
     }
-*/
+  }
 }
 
 let primerProducto = new Contenedor("./productos.txt");
 
-/* primerProducto.save(
-    {
-        title: 'Compas',
-        price: 45.01
-    }
-)
- */
+//Probando Primera Función
+primerProducto.save({
+  title: "Compas",
+  price: 45.01,
+  id: maxId + 1,
+});
+
+//Probando Segunda Función
+console.log(primerProducto.getById(3));
+
+//Probando Tercera Función
 primerProducto.getAll().then((response) => {
   console.log(response);
+
+  const maxId = response.reduce(
+    (max, responseID) => (responseID.id > max ? responseID.id : max),
+    response[0].id
+  );
+  console.log(maxId);
 });
+
+//Probando Quarta Función
+primerProducto.deleteById(2);
+
+//Probando Quinta Función
+primerProducto.deleteAll();
