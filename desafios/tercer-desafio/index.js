@@ -86,7 +86,8 @@ console.log(primerProducto.getById(3));
 //Probando Tercera Función
 primerProducto.getAll().then((response) => {
   console.log(response);
-  let maxId = response.reduce(
+
+  const maxId = response.reduce(
     (max, responseID) => (responseID.id > max ? responseID.id : max),
     response[0].id
   );
