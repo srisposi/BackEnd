@@ -7,10 +7,13 @@ class Contenedor {
   //Función Primera - Salvar objeto y obtener el id asignado
   async save(objeto) {
     try {
+      const allData = await this.getAll();
+      objeto.id = allData[allData.length-1].id + 1;
+      const newData = allData.concat(objeto);
       return fs.promises
-        .appendFile(this.url_archivo, objeto)
+        .writeFile(this.url_archivo, JSON.stringify(newData))
         .then((response) => {
-          return JSON.parse(response).data[maxId];
+          return newData[newData.length-1];
         });
     } catch (error) {
       console.log(error);
@@ -36,7 +39,7 @@ class Contenedor {
       return fs.promises
         .readFile(this.url_archivo, "utf-8")
         .then((response) => {
-          return JSON.parse(response).data;
+          return JSON.parse(response);
         });
     } catch (error) {
       console.log(error);
@@ -77,25 +80,23 @@ let primerProducto = new Contenedor("./productos.txt");
 primerProducto.save({
   title: "Compas",
   price: 45.01,
-  id: maxId + 1,
 });
 
-//Probando Segunda Función
-console.log(primerProducto.getById(3));
+// //Probando Segunda Función
+// console.log(primerProducto.getById(3));
 
 //Probando Tercera Función
 primerProducto.getAll().then((response) => {
   console.log(response);
-
-  const maxId = response.reduce(
+  let maxId = response.reduce(
     (max, responseID) => (responseID.id > max ? responseID.id : max),
     response[0].id
   );
   console.log(maxId);
 });
 
-//Probando Quarta Función
-primerProducto.deleteById(2);
+// //Probando Quarta Función
+// primerProducto.deleteById(2);
 
-//Probando Quinta Función
-primerProducto.deleteAll();
+// //Probando Quinta Función
+// primerProducto.deleteAll();
