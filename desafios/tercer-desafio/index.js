@@ -8,12 +8,12 @@ class Contenedor {
   async save(objeto) {
     try {
       const allData = await this.getAll();
-      objeto.id = allData[allData.length-1].id + 1;
+      objeto.id = allData[allData.length - 1].id + 1;
       const newData = allData.concat(objeto);
       return fs.promises
         .writeFile(this.url_archivo, JSON.stringify(newData))
         .then((response) => {
-          return newData[newData.length-1];
+          return newData[newData.length - 1];
         });
     } catch (error) {
       console.log(error);
@@ -26,7 +26,7 @@ class Contenedor {
       return fs.promises
         .readFile(this.url_archivo, "utf-8")
         .then((response) => {
-          return response.find((elemento) => elemento == number);
+          return JSON.parse(response).id(number);
         });
     } catch (error) {
       console.log(error);
@@ -82,8 +82,8 @@ primerProducto.save({
   price: 45.01,
 });
 
-// //Probando Segunda Función
-// console.log(primerProducto.getById(3));
+//Probando Segunda Función
+console.log(primerProducto.getById(3));
 
 //Probando Tercera Función
 primerProducto.getAll().then((response) => {
@@ -95,8 +95,9 @@ primerProducto.getAll().then((response) => {
   console.log(maxId);
 });
 
-// //Probando Quarta Función
-// primerProducto.deleteById(2);
+//Probando Quarta Función
+primerProducto.deleteById(2);
 
-// //Probando Quinta Función
+//Probando Quinta Función
 // primerProducto.deleteAll();
+console.log(primerProducto.getAll());

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <hr>
+    <span></span>
+    </hr>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script>
+        const TemplaString = `
+                <h1>Datos persoanles</h1>    
+            <ui>
+                <li>{{nombre}}</li>
+                <li>{{apellido}}</li>
+                <li>{{edad}}</li>
+                <li>{{mail}}</li>
+                <li>{{telefono}}</li>
+            </ui>        
+        `;
+        document.querySelector('span').innerHTML = Handlebars.compile(TemplaString)({
+            nombre: 'Mauro',
+            apellido: 'Dicesare',
+            edad: 15,
+            email: "mauro@gmail.com",
+            telefono: '43434343'
+        });
+</script>
+</body>
+</html>
+
