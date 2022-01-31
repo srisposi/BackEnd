@@ -3,9 +3,11 @@ const express = require("express");
 const { Router } = express;
 const app = express();
 const PORT = 8080;
+
 let primerProducto = new Contenedor("./productos.txt");
 let routerProductos = new Router();
 
+app.use("/static", express.static(__dirname + "public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
