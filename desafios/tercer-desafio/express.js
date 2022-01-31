@@ -1,5 +1,5 @@
 //Creación de servidor con Express
-const productos = require("./index")
+const productos = require("./index");
 const express = require("express");
 const app = express();
 const PORT = 3038;
