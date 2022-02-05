@@ -1,0 +1,62 @@
+
+¿Qué es Websocket?
+
+podemos tener diferentes servicios:
+- Notificaciones
+- Actualización de los componentes reactivos
+
+con websockets podemos cargar la vista del usuario sin necesidad de que el usuario haga nada
+solamente escuchando eventos.
+
+¿Cómo se accede a una página web sin Websocket?
+
+
+Conexiones HTTP
+
+Protocolo Websocket: principios
+//Handshake: apreton de manos
+
+Conexiones Websocket
+
+Problema con socket io: 
+Si no manejamos la misma version de socket io, se genera la conexion pero 
+no se envian los datos
+
+Detalles de intercambio de datos
+
+¿Para qué se utiliza Websocket?
+
+Aclaración: udp y tcp // La mayor diferencia es que uno tiene cabecera y el otro no
+tcp guarda la integridad de los mensajes que se estan neviando
+y hasta que no este completo el mensaje no se muestra
+udp solo le interesa que lleguen los datos
+
+¿En que casos utilizamos uno u otro?
+
+Desventajas uso de HTTP en chat
+
+¿Por qué no deberíamos hacer un chat con un protocolo HTTP?
+
+Comparación entre HTTP y websockets
+
+Resumen:
+
+SOCKET.IO
+
+¿Qué es Socket.io?
+
+
+Pasos a seguir
+npm init -y
+npm i express socket.io
+
+nosotros utilziamos una arquitectura basada en SOA (Service Oriented Architecture)
+
+evento .on es un manejador de eventos
+
+varios eventos que podemos hacer en socket, estos son:
+1. tiene evento "on" de escuchar
+2. tiene evento "emit" para emitir
+
+
+
