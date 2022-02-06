@@ -1,0 +1,31 @@
+<%- include("plantillas/head.ejs") %>
+<%- include("plantillas/header.ejs") %>
+
+    <h1 class="text-center text-dark" >Carga de productos</h1>
+    <form class="p-2" action="/productos/" method="POST">
+        <div class="form-group p-2">
+            <label class = "text-light" for="exampleInputEmail1">Nombre</label>
+            <input type="text" class="form-control" name="title"
+                placeholder="Ingresar nombre">
+        </div>
+        <div class="form-group p-2">
+            <label class = "text-light" for="exampleInputEmail1">Precio</label>
+            <input type="text" class="form-control" name="price"
+                placeholder="Ingresar precio">
+        </div>        
+        <div class="form-group p-2">
+            <div class="custom-file">
+                <input type="file" name="thumbnail" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label">Seleccione imagen</label>
+            </div>
+        </div>
+        <button class="btn btn-primary text-center m-2">Enviar</input></button>
+    </form>
+    <br>
+    <a href="/productos"><button class="btn btn-success" href="listado.ejs" >Listado de Productos</button></a>
+    <hr>
+
+<%- include("plantillas/footer.ejs") %>
+<%- include("plantillas/scripts.ejs") %>
+
+

@@ -1,0 +1,37 @@
+extends layout.pug 
+
+block productos 
+    style.
+        .table td, .table th {
+        vertical-align: middle;
+        }
+        h1 {
+        color: blue;
+        }
+        hr {
+        background-color: #ddd;
+        }
+        .container {
+        min-height: 100vh;
+        }
+    .container 
+        h1 Lista de Productos
+        br
+        if existenProductos 
+            .table-responsive
+                 table.table.table-dark
+                    tr
+                    th Nombre
+                    th Precio
+                    th Imagen
+                        each producto in productos
+                            tr
+                                td #{producto.title}
+                                td #{producto.price}
+                                td
+                                 img(width="70" src=`${producto.thumbnail}` alt="not found")
+        else  
+            h3.alert.alert-warning No se encontraron productos
+
+        a(href="/")
+            button.btn.btn-success Ir a carga de productos

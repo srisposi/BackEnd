@@ -14,12 +14,12 @@ app.engine(
   handlebars({
     extname: ".hbs",
     defaultLayout: "index.hbs",
-    partialsDir: __dirname + "/clase5/views/partials/",
+    partialsDir: __dirname + "/quinto-desafio/views/partials/",
   })
 );
 
 app.set("view engine", "hbs");
-app.set("views", __dirname + "/Clase5/views");
+app.set("views", __dirname + "/quinto-desafio/views");
 
 app.get("/", (req, res, next) => {
   res.render("formulario");

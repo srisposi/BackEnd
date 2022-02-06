@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
 app.set("view engine", "pug");
-app.set("views", __dirname + "/Clase5/views");
+app.set("views", __dirname + "/quinto-desafio/views");
 
 app.get("/", (req, res) => {
   res.render("formulario.pug");
