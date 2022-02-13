@@ -1,5 +1,9 @@
 
 ¿Qué es Websocket?
+Es un protocolo de red basado en TCP aunque también lo podemos configurar para UDP
+El protocolo TCP establece conexiones entre dos puntos finales de comunicación, llamados sockets
+de esta manera, el intercambio de datos puede producirse en las dos direcciones.
+
 
 podemos tener diferentes servicios:
 - Notificaciones
