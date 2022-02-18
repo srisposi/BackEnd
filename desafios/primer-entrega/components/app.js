@@ -1,15 +1,20 @@
 const express = require("express");
 let fs = require("fs");
-let { config } = require("/config");
+let { config } = require("../config/config");
 const app = express();
+const path = require("path");
 const PORT = config.port;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-app.engine("template", "ejs");
-app.set("views", __dirname + "/primer-entrega/views/templates");
+app.set("views", "./views");
+app.set("view engine", "ejs");
+
+app.get("/", (req, res, next) => {
+  res.render("index");
+});
 
 app.get("/health", (req, res, next) => {
   res.status(200).send({ message: "OK!" });

@@ -1,11 +1,9 @@
 const express = require("express");
 const routerCarrito = express.Router();
 
-const Carrito = require("../api/Carrito");
+const carrito = new routerCarrito();
 
-const carrito = new Carrito();
-
-routerCarrito.get("/:id/productos", (req, res) => {
+carrito.get("/:id/productos", (req, res) => {
   let respuesta = producto.listar();
   res.json(respuesta);
 });
