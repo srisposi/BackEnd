@@ -1,11 +1,17 @@
 const express = require("express");
 const routerCarrito = express.Router();
 const Contenedor = require("../controllers/carrito");
-let contenedor = new Contenedor("../controllers/carrito");
+
+let contenedor = new Contenedor();
 
 const carrito = new routerCarrito();
 
 carrito.get("/productos/:id", (req, res) => {
+  let { id } = req.params;
+  let response = null;
+  if (response) {
+    res.json(contenedor.)
+  }
   res.json(respuesta);
 });
 
