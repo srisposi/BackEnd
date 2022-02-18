@@ -51,16 +51,13 @@ class Contenedor {
   }
 }
 
-let primerProducto = new Contenedor("./productos.txt");
+let primerProducto = new Contenedor("../filesystem/carrito.txt");
 
 //Probando Primera Función
 primerProducto.save({
   title: "Compas",
   price: 45.01,
 });
-
-// //Probando Segunda Función
-// console.log(primerProducto.getById(3));
 
 //Probando Tercera Función
 primerProducto.getAll().then((response) => {
@@ -72,8 +69,4 @@ primerProducto.getAll().then((response) => {
   console.log(maxId);
 });
 
-// //Probando Quarta Función
-// primerProducto.deleteById(2);
-
-// //Probando Quinta Función
-// primerProducto.deleteAll();
+module.exports = Contenedor();
