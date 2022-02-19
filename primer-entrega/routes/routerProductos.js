@@ -7,20 +7,17 @@ const ContenedorProductos = require("../services/productos");
 let producto = new ContenedorProductos("/home/srisposi/Documents/coderhouse/primer-entrega/data/db2.json");
 
 routerProductos.get("/:id", async (req, res) => {
-  console.log("routerProductos")
   let { id } = req.params;
   console.log(id)
   res.status(200).json(await producto.getById(id));
 });
 
-routerProductos.post("/", (req, res) => {
-  let { productos } = req.body;
+routerProductos.post("/", async (req, res) => {
+  let productos = req.body;
+  console.log(productos);
   
-  res.json(
-    producto.save({
-      nombre: productos,
-    })
-  )
+  res.status(200).json(await producto.save(productos));
+  
 });
 
 routerProductos.put("/:id", (req, res) => {
@@ -35,12 +32,13 @@ routerProductos.put("/:id", (req, res) => {
   );
 });
 
-routerProductos.delete("/:id", (req, res) => {
-  let { id } = req.body;
-  if (0 < i < routerProductos.length) {
-    res.json(producto.deleteById(id));
+routerProductos.delete("/:id", async (req, res) => {
+  let id = req.body;
+  if (id) {
+    res.status(200).json( await producto.deleteById(id));
+    res.json({message : "Producto eliminado" })
   } else {
-    res.json({ message: "El número ingresado es menor a cero" });
+    res.status(500).json( await { message: "El número ingresado es menor a cero" });
   }
 });
 

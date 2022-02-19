@@ -27,7 +27,7 @@ class ContenedorProductos {
       return fs.promises
         .writeFile(this.url_archivo, JSON.stringify(newData))
         .then((response) => {
-          return newData[newData.length - 1];
+        return (newData[newData.length - 1]);
         });
     } catch (error) {
       console.log(error);
@@ -55,8 +55,9 @@ class ContenedorProductos {
       return fs.promises
         .readFile(this.url_archivo, "urf-8")
         .then((response) => {
-          response.find((elemento) => elemento == idNumberUpdate);
-          response.data[idNumberUpdate] = {
+          response.find((elemento) => elemento === parseInt(idNumberUpdate));
+          let jsonResponse = JSON.parse(response)
+          jsonResponse[idNumberUpdate] = {
             producto
           }
         })
@@ -72,8 +73,9 @@ class ContenedorProductos {
       return fs.promises
         .readFile(this.url_archivo, "utf-8")
         .then((response) => {
-          response.find((elemento) => elemento == idNumber);
-          response.data[idNumber] = {};
+          let jsonResponse = JSON.parse(response)
+          jsonResponse.find((elemento) => elemento === parseInt(idNumber));
+          jsonResponse[idNumber] = [];
         });
     } catch (error) {
       console.log(error);
@@ -92,7 +94,7 @@ let primerProducto = new ContenedorProductos("../data/productos.txt");
 //Probando Tercera Función
 primerProducto.getAll().then((response) => {
   console.log(response);
-  let maxId = response.reduce(
+  var maxId = response.reduce(
     (max, responseID) => (responseID.id > max ? responseID.id : max),
     response[0].id
   );
