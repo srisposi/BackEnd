@@ -1,0 +1,22 @@
+{
+  "name": "desafios",
+  "version": "1.0.0",
+  "description": "- npm init -y\r - npm i express\r - npm i nodemon -D",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon components/app.js",
+    "start": "node components/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
