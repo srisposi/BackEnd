@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 const fs = require("fs");
 
 class ContenedorProductos {
@@ -39,7 +40,9 @@ class ContenedorProductos {
       return fs.promises
         .readFile(this.url_archivo, "utf-8")
         .then((response) => {
-          return response.find((elemento) => elemento == number);
+          let jsonResponse = JSON.parse(response)
+          console.log(jsonResponse)
+          return jsonResponse.find((elemento) => elemento.id === parseInt(number));
         });
     } catch (error) {
       console.log(error);

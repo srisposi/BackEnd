@@ -4,16 +4,13 @@ const routerProductos = express.Router();
 const { Router } = express;
 const ContenedorProductos = require("../services/productos");
 
-let producto = new ContenedorProductos("../data/productos.txt");
+let producto = new ContenedorProductos("/home/srisposi/Documents/coderhouse/primer-entrega/data/db2.json");
 
-routerProductos.get("/:id", (req, res) => {
+routerProductos.get("/:id", async (req, res) => {
+  console.log("routerProductos")
   let { id } = req.params;
-  let response = null;
-  if (response) {
-    res.json(producto.getById(id));
-  } else {
-    res.json({message: "No existe id cargado"})
-  }
+  console.log(id)
+  res.status(200).json(await producto.getById(id));
 });
 
 routerProductos.post("/", (req, res) => {
