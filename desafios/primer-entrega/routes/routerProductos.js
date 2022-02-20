@@ -1,21 +1,34 @@
 const express = require("express");
 const routerProductos = express.Router();
-const Contenedor = require("../controllers/productos");
+const ServiceProductos = require("../services/productos");
 
-const producto = new Producto();
+let producto = new ServiceProductos("./data/db.json");
 
-producto.get("/:id", (req, res) => {
-  res.json(respuesta);
+routerProductos.get("/", async (req, res) => {
+  res.status(200).json(await producto.getAll());
 });
 
-routerProductos.post("/", (req, res) => {});
-
-routerProductos.put("/:id", (req, res) => {
-  res.json(response);
+routerProductos.get("/:id", async (req, res) => {
+  let { id } = req.params;
+  res.status(200).json(await producto.getById(id));
 });
 
-routerProductos.delete("/:id", (req, res) => {
-  res.json(response);
+routerProductos.post("/", async (req, res) => {
+  let newProducto = req.body;
+  res.status(200).json(await producto.save(newProducto));
+
 });
 
-module.exports = { routerProductos, producto };
+routerProductos.put("/:id", async (req, res) => {
+  let { id } = req.params;
+  let newProducto = req.body;
+  res.status(200).json(await producto.updateById(id, newProducto));
+});
+
+routerProductos.delete("/:id", async (req, res) => {
+  let {id} = req.params;
+  await producto.deleteById(id);
+  res.status(200).json("Producto eliminado");
+});
+
+module.exports = routerProductos;
