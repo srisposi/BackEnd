@@ -1,25 +1,27 @@
 const express = require("express");
+const { append } = require("express/lib/response");
 const routerCarrito = express.Router();
-const Contenedor = require("../controllers/carrito");
+const Contenedor = require("../services/carrito");
 
-let contenedor = new Contenedor();
+let contenedor = new Contenedor("../data/carrito.txt");
 
 const carrito = new routerCarrito();
 
-carrito.get("/productos/:id", (req, res) => {
+carrito.get("/:id", (req, res, next) => {
   let { id } = req.params;
   let response = null;
   if (response) {
-    res.json(contenedor.)
+    res.json(contenedor.getById(id))
+  } else {
+    res.json({ message: "No existe productos" });
   }
-  res.json(respuesta);
 });
 
 routerCarrito.post("/", (req, res) => {
   res.redirect("/");
 });
 
-routerCarrito.post("/:id/productos", (req, res) => {
+routerCarrito.post("/:id", (req, res) => {
   res.redirect("/");
 });
 
@@ -27,8 +29,11 @@ routerCarrito.delete("/:id", (req, res) => {
   res.json(response);
 });
 
-routerCarrito.delete("/:id/productos/:id_prod", (req, res) => {
+routerCarrito.delete("/:id_prod", (req, res) => {
   res.json(response);
 });
+
+app.use("/api/carritos", routerCarrito);
+
 
 module.exports = { routerCarrito, producto };

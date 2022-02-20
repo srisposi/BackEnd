@@ -1,21 +1,42 @@
 const express = require("express");
+const { append } = require("express/lib/response");
 const routerProductos = express.Router();
-const Contenedor = require("../controllers/productos");
+const { Router } = express;
+const ContenedorProductos = require("../services/productos");
 
-const producto = new Producto();
+let producto = new ContenedorProductos("/home/srisposi/Documents/coderhouse/primer-entrega/data/db2.json");
 
-producto.get("/:id", (req, res) => {
-  res.json(respuesta);
+routerProductos.get("/:id", async (req, res) => {
+  let { id } = req.params;
+  console.log(id)
+  res.status(200).json(await producto.getById(id));
 });
 
-routerProductos.post("/", (req, res) => {});
-
-routerProductos.put("/:id", (req, res) => {
-  res.json(response);
+routerProductos.post("/", async (req, res) => {
+  let productos = req.body;
+  console.log(productos);
+  
+  res.status(200).json(await producto.save(productos));
+  
 });
 
-routerProductos.delete("/:id", (req, res) => {
-  res.json(response);
+routerProductos.put("/:id", async (req, res) => {
+  let { id } = req.params;
+  let body = req.body;
+  console.log(req);
+  console.log(body);
+
+  res.status(200).json(await producto.updateById(id, body));
 });
 
-module.exports = { routerProductos, producto };
+routerProductos.delete("/:id", async (req, res) => {
+  let id = req.body;
+  if (id) {
+    res.status(200).json( await producto.deleteById(id));
+    res.json({message : "Producto eliminado" })
+  } else {
+    res.status(500).json( await { message: "El número ingresado es menor a cero" });
+  }
+});
+
+module.exports = routerProductos ;
