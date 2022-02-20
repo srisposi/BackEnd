@@ -20,16 +20,13 @@ routerProductos.post("/", async (req, res) => {
   
 });
 
-routerProductos.put("/:id", (req, res) => {
+routerProductos.put("/:id", async (req, res) => {
+  let { id } = req.params;
   let body = req.body;
   console.log(req);
   console.log(body);
- 
-  res.json(
-    producto.updateById(id,{
-      productos
-    })
-  );
+
+  res.status(200).json(await producto.updateById(id, body));
 });
 
 routerProductos.delete("/:id", async (req, res) => {

@@ -1,3 +1,4 @@
+const { json } = require("express/lib/response");
 const res = require("express/lib/response");
 const fs = require("fs");
 
@@ -50,17 +51,21 @@ class ContenedorProductos {
   }
 
   //Función para actualizar un producto por id
-  async updateById(idNumberUpdate, producto){
+  async updateById(id, newProducto){
     try{
       return fs.promises
         .readFile(this.url_archivo, "urf-8")
         .then((response) => {
-          response.find((elemento) => elemento === parseInt(idNumberUpdate));
           let jsonResponse = JSON.parse(response)
-          jsonResponse[idNumberUpdate] = {
-            producto
-          }
+          const result = jsonResponse.map((prod) => {
+            if (prod.id === id){
+              prod = newProducto;
+            }
+          })
+          console.log(result);
+          return (result)
         })
+        .writeFile(this.url_archivo, JSON.stringify(result))
       } catch (error){
         console.log(error)
       }
