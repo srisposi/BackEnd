@@ -1,109 +1,123 @@
-const { json } = require("express/lib/response");
-const res = require("express/lib/response");
 const fs = require("fs");
 
-class ContenedorProductos {
+class ServiceProductos {
   constructor(url_archivo) {
     this.url_archivo = url_archivo;
+    this.formatFile = "utf-8";
+    this.table = "productos";
+  }
+
+  async getDb() {
+    return fs.promises
+      .readFile(this.url_archivo, this.formatFile)
+      .then((response) => {
+        let jsonResponse = JSON.parse(response);
+        return jsonResponse;
+      });
+  }
+
+  async getTable() {
+    return this.getDb().then((response) => {
+      return response[this.table];
+    });
+  }
+
+  async saveTable(newTableData) {
+    this.getDb().then((response) => {
+      response[this.table] = newTableData;
+      return fs.promises
+        .writeFile(this.url_archivo, JSON.stringify(response))
+        .then(() => {
+          return newTableData;
+        });
+    });
   }
 
   async getAll() {
     try {
-      return fs.promises
-        .readFile(this.url_archivo, "utf-8")
-        .then((response) => {
-          return JSON.parse(response);
-        });
+      return this.getTable();
     } catch (error) {
       console.log(error);
+      return { message: "Ocurrio un error" };
     }
-  } 
+  }
 
   //Función para agregar productos al listado
   async save(objeto) {
     try {
-      const allData = await this.getAll();
-      objeto.id = allData[allData.length - 1].id + 1;
-      const newData = allData.concat(objeto);
-      return fs.promises
-        .writeFile(this.url_archivo, JSON.stringify(newData))
-        .then((response) => {
-        return (newData[newData.length - 1]);
-        });
+      const tableData = await this.getTable();
+      objeto.id = tableData[tableData.length - 1].id + 1;
+      const newData = tableData.concat(objeto);
+
+      return this.saveTable(newData).then(() => {
+        return objeto;
+      });
     } catch (error) {
       console.log(error);
+      return { message: "Ocurrio un error" };
     }
   }
 
   //Función para Listar todos los productos disponibles por id
-  async getById(number) {
+  async getById(id) {
     try {
-      return fs.promises
-        .readFile(this.url_archivo, "utf-8")
-        .then((response) => {
-          let jsonResponse = JSON.parse(response)
-          console.log(jsonResponse)
-          return jsonResponse.find((elemento) => elemento.id === parseInt(number));
-        });
+      return this.getTable().then((response) => {
+        return response.find((x) => x.id == id);
+      });
     } catch (error) {
       console.log(error);
+      return { message: "Ocurrio un error" };
     }
   }
 
   //Función para actualizar un producto por id
-  async updateById(id, newProducto){
-    try{
-      return fs.promises
-        .readFile(this.url_archivo, "urf-8")
+  async updateById(id, newObject) {
+    try {
+      return this.getTable()
         .then((response) => {
-          let jsonResponse = JSON.parse(response)
-          const result = jsonResponse.map((prod) => {
-            if (prod.id === id){
-              prod = newProducto;
+          console.log(response);
+          const result = response.map((oldObject) => {
+            if (oldObject.id == id) {
+              newObject["id"] = id;
+              return newObject;
+            } else {
+              return oldObject;
             }
-          })
-          console.log(result);
-          return (result)
+          });
+          return result;
         })
-        .writeFile(this.url_archivo, JSON.stringify(result))
-      } catch (error){
-        console.log(error)
-      }
+        .then((result) => {
+          return this.saveTable(result)
+            .then(() => {
+              return newObject;
+            })
+            .catch((err) => {
+              console.log(err);
+              return { message: "Ocurrio un error" };
+            });
+        });
+    } catch (error) {
+      console.log(error);
+      return { message: "Ocurrio un error" };
+    }
   }
 
-
   //Función para elimiar buscando un id
-  async deleteById(idNumber) {
+  async deleteById(id) {
     try {
-      return fs.promises
-        .readFile(this.url_archivo, "utf-8")
-        .then((response) => {
-          let jsonResponse = JSON.parse(response)
-          jsonResponse.find((elemento) => elemento === parseInt(idNumber));
-          jsonResponse[idNumber] = [];
+      return this.getTable().then((response) => {
+        let newData = [];
+        response.forEach((element) => {
+          if (element.id != id) {
+            newData.push(element);
+          }
         });
+        return this.saveTable(newData)
+      });
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-let primerProducto = new ContenedorProductos("../data/productos.txt");
-
-//Probando Primera Función
-// primerProducto.save({
-//   title: "Compas",
-//   price: 45.01,
-// });
-
-//Probando Tercera Función
-primerProducto.getAll().then((response) => {
-  console.log(response);
-  var maxId = response.reduce(
-    (max, responseID) => (responseID.id > max ? responseID.id : max),
-    response[0].id
-  );
-  console.log(maxId);
-});
-
-module.exports = ContenedorProductos;
+module.exports = ServiceProductos;

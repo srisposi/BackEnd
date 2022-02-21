@@ -24,5 +24,5 @@ app.get("/health", (req, res, next) => {
 app.use("/api/productos", routerProd);
 
 app.listen(PORT, () => {
-  console.log(`Estamos escuchando en está url: http://loclahost:${PORT}`);
+  console.log(`Estamos escuchando en está url: http://localhost:${PORT}`);
 });

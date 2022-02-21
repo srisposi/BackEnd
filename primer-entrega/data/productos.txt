@@ -1,5 +1,0 @@
-[
-    {"id":1, "timestamp":"", "nombre":"escuadra", "precio":123.45, "descripcion":"es un producto muy noble", "codigo":"1234", "foto": "", "stock": 1},
-    {"id":2, "timestamp":"", "nombre":"compas", "precio":23.45, "descripcion":"es un producto muy noble", "codigo":"5431", "foto": "", "stock": 21},
-    {"id":3, "timestamp":"", "nombre":"regla", "precio":323.45, "descripcion":"es un producto muy noble", "codigo":"1234", "foto": "", "stock": 10}
-]
