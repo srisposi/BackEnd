@@ -4,6 +4,7 @@ let { config } = require("../config/config");
 const app = express();
 const path = require("path");
 const PORT = config.port;
+const routerCart = require("../routes/routerCarrito");
 const routerProd = require("../routes/routerProductos");
 
 app.use(express.json());
@@ -22,6 +23,7 @@ app.get("/health", (req, res, next) => {
 });
 
 app.use("/api/productos", routerProd);
+app.use("/api/carritos", routerCart);
 
 app.listen(PORT, () => {
   console.log(`Estamos escuchando en está url: http://localhost:${PORT}`);
