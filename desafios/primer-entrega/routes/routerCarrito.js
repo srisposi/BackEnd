@@ -1,38 +1,39 @@
 const express = require("express");
+const { append } = require("express/lib/response");
 const routerCarrito = express.Router();
-const ServiceCarrito = require("../services/carrito");
+const Contenedor = require("../services/carrito");
 
-let carrito = new ServiceCarrito("./data/db.json");
+let contenedor = new Contenedor("../data/carrito.txt");
 
-routerCarrito.get("/", async (req, res) => {
-  res.status(200).json(await carrito.getAll());
-})
+const carrito = new routerCarrito();
 
-routerCarrito.get("/:id", async (req, res) => {
+carrito.get("/:id", (req, res, next) => {
   let { id } = req.params;
-  res.status(200).json(await carrito.getById(id));
+  let response = null;
+  if (response) {
+    res.json(contenedor.getById(id))
+  } else {
+    res.json({ message: "No existe productos" });
+  }
 });
 
-routerCarrito.post("/", async (req, res) => {
-  let newCarrito = req.body;
-  res.status(200).json(await carrito.save(newCarrito));
+routerCarrito.post("/", (req, res) => {
+  res.redirect("/");
 });
 
-routerCarrito.put("/:id", async (req, res) => {
-  let { id } = req.params;
-  let newCarrito = req.body;
-  res.status(200).json(await carrito.updateById(id, newCarrito));
+routerCarrito.post("/:id", (req, res) => {
+  res.redirect("/");
 });
 
-routerCarrito.delete("/:id", async (req, res) => {
-  let {id} = req.params;
-  await carrito.deleteById(id);
-  res.status(200).json("carrito eliminado");
+routerCarrito.delete("/:id", (req, res) => {
+  res.json(response);
 });
 
-routerCarrito.delete("/", async (req, res) => {
-  await carrito.deleteAll();
-  res.status(200).json("Carrito eliminado por completo");
-})
+routerCarrito.delete("/:id_prod", (req, res) => {
+  res.json(response);
+});
 
-module.exports = routerCarrito;
+app.use("/api/carritos", routerCarrito);
+
+
+module.exports = { routerCarrito, producto };

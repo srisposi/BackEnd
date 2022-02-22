@@ -1,134 +1,72 @@
 const fs = require("fs");
 
-class ServiceCarrito {
+class Contenedor {
   constructor(url_archivo) {
     this.url_archivo = url_archivo;
-    this.formatFile = "utf-8";
-    this.table = "carrito";
-  }
-
-  async getDb() {
-    return fs.promises
-      .readFile(this.url_archivo, this.formatFile)
-      .then((response) => {
-        let jsonResponse = JSON.parse(response);
-        return jsonResponse;
-      });
-  }
-
-  async getTable() {
-    return this.getDb().then((response) => {
-      return response[this.table];
-    });
-  }
-
-
-  async saveTable(newTableData) {
-    this.getDb().then((response) => {
-      response[this.table] = newTableData;
-      return fs.promises
-        .writeFile(this.url_archivo, JSON.stringify(response))
-        .then(() => {
-          return newTableData;
-        });
-    });
-  }
-
-  async getAll() {
-    try {
-      return this.getTable();
-    } catch (error) {
-      console.log(error);
-      return { message: "Ocurrio un error" };
-    }
   }
 
   //Función para agregar productos al listado
   async save(objeto) {
     try {
-      const tableData = await this.getTable();
-      objeto.id = tableData[tableData.length - 1].id + 1;
-      const newData = tableData.concat(objeto);
-
-      return this.saveTable(newData).then(() => {
-        return objeto;
-      });
+      const allData = await this.getAll();
+      objeto.id = allData[allData.length - 1].id + 1;
+      const newData = allData.concat(objeto);
+      return fs.promises
+        .writeFile(this.url_archivo, JSON.stringify(newData))
+        .then((response) => {
+          return newData[newData.length - 1];
+        });
     } catch (error) {
       console.log(error);
-      return { message: "Ocurrio un error" };
     }
   }
 
   //Función para Listar todos los productos disponibles por id
-  async getById(id) {
+  async getById(number) {
     try {
-      return this.getTable().then((response) => {
-        return response.find((x) => x.id == id);
-      });
-    } catch (error) {
-      console.log(error);
-      return { message: "Ocurrio un error" };
-    }
-  }
-
-  //Función para actualizar un producto por id
-  async updateById(id, newObject) {
-    try {
-      return this.getTable()
+      return fs.promises
+        .readFile(this.url_archivo, "utf-8")
         .then((response) => {
-          console.log(response);
-          const result = response.map((oldObject) => {
-            if (oldObject.id == id) {
-              newObject["id"] = id;
-              return newObject;
-            } else {
-              return oldObject;
-            }
-          });
-          return result;
-        })
-        .then((result) => {
-          return this.saveTable(result)
-            .then(() => {
-              return newObject;
-            })
-            .catch((err) => {
-              console.log(err);
-              return { message: "Ocurrio un error" };
-            });
+          return response.find((elemento) => elemento == number);
         });
     } catch (error) {
       console.log(error);
-      return { message: "Ocurrio un error" };
     }
   }
+
+
 
   //Función para elimiar buscando un id
-  async deleteById(id) {
+  async deleteById(idNumber) {
     try {
-      return this.getTable().then((response) => {
-        let newData = [];
-        response.forEach((element) => {
-          if (element.id != id) {
-            newData.push(element);
-          }
+      return fs.promises
+        .readFile(this.url_archivo, "utf-8")
+        .then((response) => {
+          response.find((elemento) => elemento == idNumber);
+          response.data[idNumber] = {};
         });
-        return this.saveTable(newData)
-      });
     } catch (error) {
       console.log(error);
     }
   }
-
-  async deleteAll(){
-    try {
-      return this.getTable().then((response) => {
-        response = [];
-      return this.saveTable(response)
-    });
-  }catch (error){
-      console.log(error);
-    } 
-  }
 }
-module.exports = ServiceCarrito;
+
+let primerProducto = new Contenedor("../filesystem/carrito.txt");
+
+//Probando Primera Función
+primerProducto.save({
+  title: "Compas",
+  price: 45.01,
+});
+
+//Probando Tercera Función
+primerProducto.getAll().then((response) => {
+  console.log(response);
+  let maxId = response.reduce(
+    (max, responseID) => (responseID.id > max ? responseID.id : max),
+    response[0].id
+  );
+  console.log(maxId);
+});
+
+module.exports = Contenedor;
