@@ -1,72 +1,170 @@
 const fs = require("fs");
-
-class Contenedor {
+const UUID = require("uuidjs");
+const ServiceProductos = require("./productos");
+// const moment = require('moment');
+// const dateNow = Date.now();
+class ServiceCarrito {
   constructor(url_archivo) {
     this.url_archivo = url_archivo;
+    this.formatFile = "utf-8";
+    this.table = "carrito";
+    this.productoServices = new ServiceProductos("./data/db.json");
+  }
+
+  async getDb() {
+    return fs.promises
+      .readFile(this.url_archivo, this.formatFile)
+      .then((response) => {
+        let jsonResponse = JSON.parse(response);
+        return jsonResponse;
+      });
+  }
+
+  async getTable() {
+    return this.getDb().then((response) => {
+      return response[this.table];
+    });
+  }
+
+  async saveTable(newTableData) {
+    this.getDb().then((response) => {
+      response[this.table] = newTableData;
+      return fs.promises
+        .writeFile(this.url_archivo, JSON.stringify(response))
+        .then(() => {
+          return newTableData;
+        });
+    });
+  }
+
+  async getAll() {
+    try {
+      return this.getTable();
+    } catch (error) {
+      console.log(error);
+      return { message: "Ocurrio un error" };
+    }
+  }
+
+  getUiid() {
+    return UUID.genV4().hexString;
+  }
+
+  //Función para crear carrito y devolver id
+  async createCarrito() {
+    try {
+      let carrito = {
+        id: this.getUiid(),
+        timeStamp: Date.now(),
+        producto: [],
+      };
+      return this.save(carrito).then(() => {
+        return carrito;
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   //Función para agregar productos al listado
   async save(objeto) {
     try {
-      const allData = await this.getAll();
-      objeto.id = allData[allData.length - 1].id + 1;
-      const newData = allData.concat(objeto);
-      return fs.promises
-        .writeFile(this.url_archivo, JSON.stringify(newData))
-        .then((response) => {
-          return newData[newData.length - 1];
-        });
+      const tableData = await this.getTable();
+      const newData = tableData.concat(objeto);
+
+      return this.saveTable(newData).then(() => {
+        return objeto;
+      });
     } catch (error) {
       console.log(error);
+      return { message: "Ocurrio un error" };
     }
   }
 
   //Función para Listar todos los productos disponibles por id
-  async getById(number) {
+  async getById(id) {
     try {
-      return fs.promises
-        .readFile(this.url_archivo, "utf-8")
-        .then((response) => {
-          return response.find((elemento) => elemento == number);
+      return this.getTable().then((response) => {
+        let dataResponse = response.find((x) => x.id == id);
+        if(!dataResponse){
+          throw "No se encontró";
+        } 
+        return this.getDb().then((response) => {
+          let productos = response.productos;
+          dataResponse.producto = dataResponse.producto.map((x) => {
+            return productos.find(element => element.id == x)
+          });
+          return dataResponse;
         });
+      })
+      .catch((err) => {
+        return { message: `Ocurrio un error ${err}` };          
+      });
+    } catch (error) {
+      console.log(error);
+      return { message: "Ocurrio un error" };
+    }
+  }
+
+  //Función para actualizar un producto por id
+  async updateById(id, idProd) {
+    try {
+      let dataResponse = null;
+      return this.getTable()
+        .then((response) => {
+          const result = response.map((oldObject) => {
+            if (oldObject.id == id) {
+              oldObject["producto"].push(idProd);
+              dataResponse = oldObject;
+              return oldObject;
+            } else {
+              return oldObject;
+            }
+          });
+          return result;
+        })
+        .then((result) => {
+          return this.saveTable(result)
+            .then(() => {
+              return dataResponse;
+            })
+            .catch((err) => {
+              console.log(err);
+              return { message: "Ocurrio un error" };
+            });
+        });
+    } catch (error) {
+      console.log(error);
+      return { message: "Ocurrio un error" };
+    }
+  }
+
+  //Función para elimiar buscando un id
+  async deleteById(id) {
+    try {
+      return this.getTable().then((response) => {
+        let newData = [];
+        response.forEach((element) => {
+          if (element.id != id) {
+            newData.push(element);
+          }
+        });
+        return this.saveTable(newData);
+      });
     } catch (error) {
       console.log(error);
     }
   }
 
-
-
-  //Función para elimiar buscando un id
-  async deleteById(idNumber) {
+  async deleteAll() {
     try {
-      return fs.promises
-        .readFile(this.url_archivo, "utf-8")
-        .then((response) => {
-          response.find((elemento) => elemento == idNumber);
-          response.data[idNumber] = {};
-        });
+      return this.getTable().then((response) => {
+        response = [];
+        return this.saveTable(response);
+      });
     } catch (error) {
       console.log(error);
     }
   }
 }
-
-let primerProducto = new Contenedor("../filesystem/carrito.txt");
-
-//Probando Primera Función
-primerProducto.save({
-  title: "Compas",
-  price: 45.01,
-});
-
-//Probando Tercera Función
-primerProducto.getAll().then((response) => {
-  console.log(response);
-  let maxId = response.reduce(
-    (max, responseID) => (responseID.id > max ? responseID.id : max),
-    response[0].id
-  );
-  console.log(maxId);
-});
-
-module.exports = Contenedor;
+module.exports = ServiceCarrito;

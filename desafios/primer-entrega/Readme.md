@@ -26,3 +26,6 @@ app.set("views", "./views/pages/ejs");
 app.set("view engine", "ejs");
 
 res.render('pages/index')
+
+
+npm i uuijs
