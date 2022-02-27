@@ -6,6 +6,15 @@ const path = require("path");
 const PORT = config.port;
 const routerCart = require("../routes/routerCarrito");
 const routerProd = require("../routes/routerProductos");
+const ADMIN = config.admin;
+const ServiceProductos = require("../services/productos");
+const { cwd } = require("process");
+
+function adminValidation(res) {
+}
+
+console.log(cwd());
+let services_function = new ServiceProductos("./data/db.json");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,8 +23,10 @@ app.use(express.static(__dirname + "/public"));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
-app.get("/index", (req, res, next) => {
-  res.render("index");
+app.get("/index", async (req, res, next) => {
+  // res.render("index", { titulo: "hola mundo", admin: ADMIN } );
+  const productos = await services_function.getTable()
+  res.render("index", {  productos: productos, admin: ADMIN } );
 });
 
 app.get("/health", (req, res, next) => {
