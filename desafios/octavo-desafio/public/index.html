@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="css.css">
+</head>
+
+<body style="background-image: url('imagenes/background.jpg');background-size:100%;">
+    <div class="container mt-3">
+        <h1 class="text-center text-light">Formulario</h1>
+        <form class="p-2" action="" method="">
+            <div class="form-group col-md-6">
+                <label class="text-light" for="exampleInputEmail1">Nombre</label>
+                <input type="text" class="form-control" name="title" id="name" placeholder="Ingresar nombre" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="text-light" for="exampleInputEmail1">Precio</label>
+                <input type="text" class="form-control" name="price" id="price" placeholder="Ingresar precio" required>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="custom-file">
+                    <input type="file" name="images" class="custom-file-input" id="image"
+                        placeholder="Ingresar imágenes">
+                    <label class="custom-file-label">Imagen</label>
+                </div>
+            </div>
+            <button class="btn btn-primary text-center m-2">Enviar</button>
+        </form>
+
+        <div id="tablaDinamica">
+        </div>
+
+        <h1 class="text-light p-3">Centro de Mensajería</h1>
+        <div class="bg-light p-3 m-1" id="messages"></div>
+        <form class="form-inline" autocomplete="off" id="formulario">
+            <input type="email" id="usermail" class="form-control my-2 mr-2" placeholder="Ingresar tu mail" required>
+            <input type="text" id="texto" class="form-control my-2 mr-2" placeholder="Mensaje">
+            <input class="btn btn-primary my-2" type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <script src="/main.js"></script>
+</body>
+
+</html>
