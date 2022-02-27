@@ -5,7 +5,7 @@ const io = require("socket.io")(server);
 
 app.use(express.static(__dirname + "/public"));
 
-const Mensajes = require("./api/mensajes");
+const Mensajes = require("./api/Mensajes");
 const { routerProductos, producto } = require("./routes/routerProductos");
 
 const PORT = 8080;
@@ -21,13 +21,13 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("alguien se conectó");
+  console.log("Un cliente se ha conectado");
   let contenido = mensajes.leerMensajes();
   let comprobacion = producto.productos.length !== 0;
 
   socket.emit("content", {
-    productExist: comprobacion,
-    products: producto.productos,
+    hayProductos: comprobacion,
+    productos: producto.productos,
   });
 
   socket.emit("messages", contenido);
@@ -35,8 +35,8 @@ io.on("connection", (socket) => {
   socket.on("contentSent", () => {
     let comprobacion = producto.productos.length !== 0;
     io.sockets.emit("content", {
-      productExist: comprobacion,
-      products: producto.productos,
+      hayProductos: comprobacion,
+      productos: producto.productos,
     });
   });
   socket.on("new-message", function (data) {
