@@ -3,7 +3,7 @@
 - mongod => para iniciar el servidor de mongo
 - mongo => para poder usar mongo
 
-#1. Creamos la base de datos en mongo llamada Ecommerce
+# 1. Creamos la base de datos en mongo llamada Ecommerce
 
 - use ecommerce
 
@@ -25,15 +25,16 @@ db.createCollection('mensajes')
 show collections;
 db.productos.insertMany([{}])
 
-#3. Listar los documentos de cada colección:
+# 3. Listar los documentos de cada colección:
 
 db.productos.find.pretty();
 
-#4. Para mostrar la cantidad de documentos en cada collección:
+# 4. Para mostrar la cantidad de documentos en cada collección:
 
 db.productos.count();
 
-#5. CRUD sobre las colleciones creadas:
+# 5. CRUD sobre las colleciones creadas:
+
 a. Agregar un producto más en la colección de productos.
 
          db.productos.insertOne({});
@@ -67,6 +68,6 @@ a. Agregar un producto más en la colección de productos.
 
             db.productos.deleteMany({"precio": {$lt: 1000}})
 
-#6) Crear un usuario 'pepe' clave:'asd456' que sólo pueda leer la base de datos ecommerce, Verificar que pepe no pueda cambiar la información.
+# 6) Crear un usuario 'pepe' clave:'asd456' que sólo pueda leer la base de datos ecommerce, Verificar que pepe no pueda cambiar la información.
 
 db.createUser({"user": "pepe", "pwd": "asd456", roles:[{role: "read", db: "ecommerce"}]});
