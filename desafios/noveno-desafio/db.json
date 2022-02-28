@@ -1,0 +1,166 @@
+{
+  "productos": [
+    {
+      "timestamp": "",
+      "nombre": "cuaderno",
+      "precio": 1200,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 5
+    },
+    {
+      "timestamp": "",
+      "nombre": "cuaderno loco",
+      "precio": 2500,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 6
+    },
+    {
+      "timestamp": "",
+      "nombre": "cuaderno loco 2",
+      "precio": 1900,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 7
+    },
+    {
+      "timestamp": "",
+      "nombre": "regla T",
+      "precio": 512,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 8
+    },
+    {
+      "timestamp": "",
+      "nombre": "lapicera",
+      "precio": 110,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 9
+    },
+    {
+      "timestamp": "",
+      "nombre": "goma",
+      "precio": 751,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 10
+    },
+    {
+      "timestamp": "",
+      "nombre": "lapicera",
+      "precio": 911,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 11
+    },
+    {
+      "timestamp": "",
+      "nombre": "boligrafo",
+      "precio": 4111,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 12
+    },
+    {
+      "timestamp": "",
+      "nombre": "boligrafo",
+      "precio": 3411,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0015",
+      "foto": "",
+      "stock": 15,
+      "id": 15
+    },
+    {
+      "timestamp": "",
+      "nombre": "pisapapel",
+      "precio": 2070,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0004",
+      "foto": "",
+      "stock": 5,
+      "id": 4
+    }
+  ],
+  "mensajes": [
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "josé",
+      "mensaje": "Hola"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Pedro",
+      "mensaje": "Como va"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Sofía",
+      "mensaje": "Todo fino"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Andrés",
+      "mensaje": "Hola"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Pepe",
+      "mensaje": "Como va"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Carla",
+      "mensaje": "Todo fino"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Fede",
+      "mensaje": "Hola"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Juan",
+      "mensaje": "Como va"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Lucía",
+      "mensaje": "Todo fino"
+    },
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "autor": "Andy",
+      "mensaje": "Todo fino"
+    }
+  ]
+}
