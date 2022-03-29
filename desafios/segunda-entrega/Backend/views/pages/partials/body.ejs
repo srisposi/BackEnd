@@ -1,0 +1,26 @@
+<style>
+  .img {
+    height: 300px;
+    width: 100px;
+  }
+  
+</style>
+
+  <% if (admin) { %>
+    <% productos.forEach(function(producto) { %>
+      <input id="input_<%= producto.id %>" type="text" value= "<%= producto.nombre %>" class="">
+      <button id="<%= producto.id %>" class="btn btn-primary prueba">Modificar</button>
+      <a href="#!" class="btn btn-primary">Eliminar</a>
+    <% }); %>    
+  <% } %>
+
+
+  <script>
+    document.querySelectorAll(".prueba").forEach((element) => {
+      element.addEventListener("click", function(){
+        const idProduct = this.getAttribute("id");
+        const newName = document.querySelector("#input_" + idProduct).value;
+        console.log(idProduct, newName);
+      });
+    });
+  </script>
