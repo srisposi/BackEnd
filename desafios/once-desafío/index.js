@@ -5,6 +5,7 @@ const io = require("socket.io")(server);
 let { Router } = require("express");
 let router = new Router();
 let testingController = require("./components/Faker/controllers/Controller");
+const port = 8085;
 
 app.use(express.static(__dirname + "/public"));
 
@@ -52,6 +53,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8080, () => {
-  console.log("Servidor escuchando en http://localhost:8080");
+server.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });

@@ -1,11 +1,11 @@
 {
-  "name": "clase11",
+  "name": "desafio-once",
   "version": "1.0.0",
-  "description": "Clase 11 Backend, utilizando Mocks y Normalizacion.",
+  "description": "Desafío 11",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "dev" : "node index.js",
+    "start": "node index.js",
+    "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
