@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
+const express_session = require("express-session");
 let { Router } = require("express");
 let router = new Router();
 let testingController = require("./components/Faker/controllers/Controller");
-const port = 8085;
+const port = 8086;
+let secret_session = "secret";
 
 app.use(express.static(__dirname + "/public"));
 
@@ -22,6 +24,31 @@ app.use("/api", routerProductos);
 
 app.get("/", (req, res) => {
   res.sendFile("index");
+});
+
+app.use(express_session({
+  secret: secret_session,
+  resave: true,
+  saveUniinitial: true,
+}
+));
+
+const getName = req => req.session.name || '';
+
+app.get("/", (req, res, next)=> {
+  let { name } = req.query;
+  if(name){
+      res.send(`<h1>Hola ${getName(req)}, bienvenido!!!</h1>`);
+  }
+  res.send("Todo ok!");
+});
+
+app.get("/olvidar", (req, res, next) => {
+  let name = getName(req);
+  req.session.destroy(err=> {
+      if(err) res.json({"error": JSON.stringify(err)});
+      res.send(`Hasta luego ${name}`);
+  })
 });
 
 app.use("/", router);
