@@ -1,0 +1,22 @@
+.contenedor{
+    max-width: 700px;
+    width: 100%;
+    margin: 90px auto 0px;
+    box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgb(0 0 0 / 45%);
+    padding: 50px;
+}
+.btn_custom_twitter{
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    display: flex;
+    font-size: 10pt;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 200px;
+    background-color: #edfdff;
+    border: 1px solid #a8d3ff;
+    text-transform: none;
+}

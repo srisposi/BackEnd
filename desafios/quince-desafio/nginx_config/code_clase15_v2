@@ -1,0 +1,59 @@
+
+upstream node_app1 {
+
+        # enable sticky session with either "hash" (uses the complete IP address)
+        hash $remote_addr consistent;
+	
+	#FORK
+        server localhost:8080;
+}
+
+upstream node_app2 {
+
+	# enable sticky session with either "hash" (uses the complete IP address)
+	hash $remote_addr consistent;
+	
+	#CLUSTER
+        server localhost:8082;
+        server localhost:8083;
+        server localhost:8084;
+        server localhost:8085;
+}
+
+
+# Default server configuration
+#
+server {
+        listen 9090 default_server;
+        listen [::]:9090 default_server;
+
+        server_name mginx_node;
+
+        root /home/echevalier/Devel/Coder/Backend/backend_clase15/desafio/public;
+
+        location / {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $host;
+
+		proxy_pass https://node_app1;
+		
+		# enable WebSockets
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+        }
+
+	location /api/randoms {
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $host;
+
+                proxy_pass https://node_app2/api/randoms;
+                
+                # enable WebSockets
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+        }
+
+
+}
