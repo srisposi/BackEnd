@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="contenedor">
+      <div class="formulario">
+        <h1>Login</h1>
+        <hr />
+        <form
+          class="form"
+          action="/login"
+          method="post"
+          role="form"
+          autocomplete="off"
+        >
+          <div class="form-group">
+            <input
+              id="nombre"
+              name="username"
+              placeholder="nombre"
+              class="form-control"
+              type="text"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              id="password"
+              name="password"
+              placeholder="password"
+              class="form-control"
+              type="password"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <input class="btn btn-success my-3" type="submit" value="Login" />
+          </div>
+        </form>
+        <hr />
+        <a class="btn_custom btn btn-primary" href="/registro">Resgistrate</a>
+        <div style="display: flex; width: 100%; justify-content: center">
+          <a class="btn_custom_twitter" href="/auth/facebook/callback">
+            <svg
+              style="width: 19px; margin-right: 10px"
+              viewBox="328 355 335 276"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="
+                          M 630, 425
+                          A 195, 195 0 0 1 331, 600
+                          A 142, 142 0 0 0 428, 570
+                          A  70,  70 0 0 1 370, 523
+                          A  70,  70 0 0 0 401, 521
+                          A  70,  70 0 0 1 344, 455
+                          A  70,  70 0 0 0 372, 460
+                          A  70,  70 0 0 1 354, 370
+                          A 195, 195 0 0 0 495, 442
+                          A  67,  67 0 0 1 611, 380
+                          A 117, 117 0 0 0 654, 363
+                          A  65,  65 0 0 1 623, 401
+                          A 117, 117 0 0 0 662, 390
+                          A  65,  65 0 0 1 630, 425
+                          Z"
+                style="fill: #3ba9ee"
+              />
+            </svg>
+
+            Sign in with Facebook</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
