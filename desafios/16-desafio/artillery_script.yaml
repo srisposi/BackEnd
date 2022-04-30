@@ -1,0 +1,7 @@
+config:
+  target: "https://localhost:8080/api/info"
+  tls:
+    rejectUnauthorized: false
+  phases:
+    - arrivalRate: 50
+      duration: 600

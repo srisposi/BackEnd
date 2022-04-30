@@ -134,6 +134,83 @@ app.get(
   })
 );
 
+//Cluster
+
+const numCPUs = os.cpus().length;
+
+const argv = yargs(hideBin(process.argv))
+  .default({
+    modo: "FORK",
+    puerto: 8080,
+  })
+  .alias({
+    m: "modo",
+    p: "puerto",
+  }).argv;
+
+if (argv.modo.toUpperCase() == "CLUSTER") {
+  if (cluster.isPrimary) {
+    console.log(`Master Cluster PID ${process.pid} is running.`);
+
+    // setup sticky sessions
+    setupMaster(httpsServer, {
+      loadBalancingMethod: "least-connection",
+    });
+
+    // setup connections between the workers
+    setupPrimary();
+
+    // FORK WORKER
+    for (let i = 0; i < numCPUs; i++) {
+      cluster.fork();
+    }
+
+    cluster.on("exit", (worker, code, signal) => {
+      console.log(`worker ${worker.process.pid} died.`);
+      cluster.fork();
+    });
+  } else {
+    //let io = serverSocketsEvents(httpsServer);
+
+    const server = httpsServer.listen(PORT, (err) => {
+      if (err) {
+        console.log("Error while starting server");
+      } else {
+        console.log(
+          `
+                    Server running on PORT ${config.port}
+                    `
+        );
+      }
+    });
+
+    // use the cluster adapter
+    io.adapter(createAdapter());
+
+    // setup connection with the primary process
+    setupWorker(io);
+
+    server.on("error", (error) =>
+      console.log(`Error en servidorProcess Pid: ${process.pid}: ${error}`)
+    );
+  }
+} else {
+  serverSocketsEvents(httpsServer);
+
+  const server = httpsServer.listen(PORT, "localhost", (err) => {
+    if (err) {
+      console.log("Error while starting server");
+    } else {
+      console.log(
+        `Server running on PORT ${config.port}
+                `
+      );
+    }
+  });
+
+  server.on("error", (error) => console.log(`Error en servidor ${error}`));
+}
+
 app.listen(PORT, (err) => {
   if (err) return console.log("error en listen server", err);
   console.log(`Server running on PORT ${config.port}`);
