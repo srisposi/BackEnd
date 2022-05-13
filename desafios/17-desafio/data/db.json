@@ -1,0 +1,96 @@
+{
+  "productos": [
+    {
+      "timestamp": "",
+      "nombre": "cuaderno",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 5
+    },
+    {
+      "timestamp": "",
+      "nombre": "cuaderno loco",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 6
+    },
+    {
+      "timestamp": "",
+      "nombre": "cuaderno loco 2",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 7
+    },
+    {
+      "timestamp": "",
+      "nombre": "cuaderno loco 3",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 8
+    },
+    {
+      "timestamp": "",
+      "nombre": "lapicera",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 9
+    },
+    {
+      "timestamp": "",
+      "nombre": "lapicera",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 10
+    },
+    {
+      "timestamp": "",
+      "nombre": "lapicera",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 11
+    },
+    {
+      "timestamp": "",
+      "nombre": "lapicera",
+      "precio": 12,
+      "descripcion": "es un producto muy noble",
+      "codigo": "0001",
+      "foto": "",
+      "stock": 5,
+      "id": 12
+    }
+  ],
+  "carrito": [
+    {
+      "id": "9dd0b79e-cdb2-4cd8-b77a-0bdaf2d3a5b6",
+      "timeStamp": 1645537812217,
+      "producto": []
+    },
+    {
+      "id": "835df011-7baf-47f6-9495-5878e962eb40",
+      "timeStamp": 1645537814148,
+      "producto": []
+    }
+  ]
+}
