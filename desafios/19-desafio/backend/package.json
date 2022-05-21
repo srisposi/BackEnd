@@ -1,0 +1,31 @@
+{
+  "name": "desafios",
+  "version": "1.0.0",
+  "description": "- npm init -y\r - npm i express\r - npm i nodemon -D",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "debug": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "firebase": "^9.6.10",
+    "firebase-admin": "^10.0.2",
+    "joi": "^17.6.0",
+    "mongodb": "^4.4.1",
+    "mongoose": "^6.2.8",
+    "uuidjs": "^4.2.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
