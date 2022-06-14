@@ -32,9 +32,10 @@ async function getCarrito() {
 
 async function getUsuario() {
   try {
-    let res = await axios.post(`http://localhost:${config.port}/api/usuario`, {
-      number,
-    });
+    let res = await axios.post(
+      `http://localhost:${config.port}/api/usuario`,
+      {}
+    );
     console.log(res.data);
   } catch (error) {
     console.log(error);
