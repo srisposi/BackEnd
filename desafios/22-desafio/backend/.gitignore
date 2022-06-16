@@ -1,0 +1,4 @@
+/node_modules
+/build
+/package-lock.json
+./utils/Firebase/config/ecommerce-proyecto-final
